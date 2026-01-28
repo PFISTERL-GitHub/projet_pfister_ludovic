@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './login.component.html'
 })
 export class LoginComponent {
@@ -17,6 +17,7 @@ export class LoginComponent {
   };
 
   errorMessage = '';
+  successMessage = '';
 
   constructor(
     private auth: AuthService,
@@ -27,10 +28,15 @@ export class LoginComponent {
     this.auth.login(this.form).subscribe({
       next: (res) => {
         this.auth.saveToken(res.token);
-        this.router.navigate(['/']);
+
+        this.successMessage = "Connexion réussie ✅";
+
+        setTimeout(() => {
+          this.router.navigate(['/dashboard']);
+        }, 1000);
       },
       error: () => {
-        this.errorMessage = 'Email ou mot de passe incorrect';
+        this.errorMessage = "Email ou mot de passe incorrect ❌";
       }
     });
   }
