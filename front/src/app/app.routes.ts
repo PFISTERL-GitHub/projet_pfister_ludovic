@@ -1,10 +1,43 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './pages/login/login.component';
-import { RegisterComponent } from './pages/register/register.component';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: '**', redirectTo: 'login' }
+
+  /* Dashboard protégé */
+  {
+    path: 'dashboard',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./pages/dashboard/dashboard.component')
+        .then(m => m.DashboardComponent)
+  },
+
+  /* Login */
+  {
+    path: 'login',
+    loadComponent: () =>
+      import('./pages/login/login.component')
+        .then(m => m.LoginComponent)
+  },
+
+  /* Register */
+  {
+    path: 'register',
+    loadComponent: () =>
+      import('./pages/register/register.component')
+        .then(m => m.RegisterComponent)
+  },
+
+  /* Redirection par défaut */
+  {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full'
+  },
+
+  /* Route inconnue */
+  {
+    path: '**',
+    redirectTo: 'login'
+  }
 ];
