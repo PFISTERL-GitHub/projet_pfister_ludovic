@@ -5,11 +5,14 @@ import { FavoriteService } from './services/favorite.service';
 import { Observable } from 'rxjs';
 import { Pollution } from './models/pollution.model';
 import { AuthService } from './services/auth.service';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, NavbarComponent],
   template: `<router-outlet></router-outlet>`,
+  templateUrl: './app.html',
+  styleUrl: './app.css',
   standalone : true
 })
 export class App implements OnInit {

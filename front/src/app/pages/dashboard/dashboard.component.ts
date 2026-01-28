@@ -8,16 +8,7 @@ import { Router } from '@angular/router';
   standalone: true,
   template: `
     <h2>Dashboard</h2>
-
-    <button (click)="logout()">Logout</button>
+    <p>Zone privée accessible uniquement connecté.</p>
   `
 })
-export class DashboardComponent {
-
-  constructor(private store: Store, private router: Router) {}
-
-  logout(): void {
-    this.store.dispatch(new Logout());
-    this.router.navigate(['/login']);
-  }
-}
+export class DashboardComponent {}
