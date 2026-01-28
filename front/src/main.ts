@@ -5,7 +5,7 @@ import { provideRouter } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 
 import { NgxsModule } from '@ngxs/store';
-import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
+import { NgxsStoragePluginModule, StorageOption } from '@ngxs/storage-plugin';
 
 import { App } from './app/app';
 import { routes } from './app/app.routes';
@@ -18,11 +18,12 @@ bootstrapApplication(App, {
     provideRouter(routes),
     provideHttpClient(withInterceptors([tokenInterceptor])),
 
-    /* NGXS */
     importProvidersFrom(
       NgxsModule.forRoot([AuthState]),
+
       NgxsStoragePluginModule.forRoot({
-        keys: ['auth']
+        keys: ['auth'],         
+        storage: StorageOption.SessionStorage 
       })
     )
   ]

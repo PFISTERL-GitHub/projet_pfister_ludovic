@@ -63,6 +63,6 @@ export class AuthState {
       profile: null,
       isAuthenticated: false
     });
-    localStorage.removeItem('auth');
+    sessionStorage.removeItem('auth');
   }
 }

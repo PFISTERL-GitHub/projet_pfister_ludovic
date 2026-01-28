@@ -30,6 +30,10 @@ export class PollutionService {
     return this.http.post<Pollution>(this.apiUrl, pollution);
   }
 
+  createPollutions(data: any) {
+  return this.http.post<Pollution>(this.apiUrl, data);
+}
+
   /* Modifier une pollution existante
   PUT /api/pollutions/:id */
   updatePollution(id: number, pollution: Partial<Pollution>): Observable<Pollution> {
