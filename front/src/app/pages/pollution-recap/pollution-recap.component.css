@@ -1,0 +1,128 @@
+.recap-container {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.recap-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #4CAF50;
+}
+
+.recap-header h2 {
+  color: #4CAF50;
+  margin-bottom: 0.5rem;
+}
+
+.success-message {
+  color: #666;
+  font-size: 1rem;
+}
+
+.recap-content h3 {
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.recap-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.recap-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.recap-item.full-width {
+  grid-column: 1 / -1;
+}
+
+.label {
+  font-weight: 600;
+  color: #555;
+  font-size: 0.9rem;
+}
+
+.value {
+  color: #333;
+  font-size: 1rem;
+}
+
+.description {
+  color: #333;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  background: #f9f9f9;
+  padding: 1rem;
+  border-radius: 4px;
+  margin: 0;
+}
+
+/* Badge pour le type de pollution */
+.badge {
+  display: inline-block;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.badge-plastique { background: #FFE5B4; color: #8B4513; }
+.badge-chimique { background: #FFE4E1; color: #DC143C; }
+.badge-dépôt-sauvage { background: #E6E6FA; color: #4B0082; }
+.badge-eau { background: #E0F2F7; color: #0277BD; }
+.badge-air { background: #E8F5E9; color: #2E7D32; }
+.badge-autre { background: #F5F5F5; color: #616161; }
+
+/* Photo */
+.photo-container {
+  margin-top: 0.5rem;
+  border-radius: 8px;
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.photo-container img {
+  width: 100%;
+  height: auto;
+  display: block;
+  max-height: 400px;
+  object-fit: cover;
+}
+
+/* Bouton de réinitialisation */
+.btn-reset {
+  width: 100%;
+  padding: 1rem;
+  background: #2196F3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn-reset:hover {
+  background: #1976D2;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .recap-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .recap-container {
+    padding: 1rem;
+  }
+}

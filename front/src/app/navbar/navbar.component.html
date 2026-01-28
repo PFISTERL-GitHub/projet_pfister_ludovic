@@ -1,0 +1,25 @@
+<nav style="padding:15px; background:#eee; margin-bottom:20px;">
+
+  <!-- Si NON connecté -->
+  <ng-container *ngIf="!(isAuth$ | async)">
+    <a routerLink="/pollutions" routerLinkActive="active">Liste des pollutions 🚮</a>
+    | <a routerLink="/login">Se connecter</a>
+    | <a routerLink="/register">S'inscrire</a>
+  </ng-container>
+
+  <!-- Si connecté -->
+  <ng-container *ngIf="isAuth$ | async">
+
+    <span *ngIf="profile$ | async as profile">
+      Bienvenue <b>{{ profile.email }}</b>
+    </span>
+    | <a routerLink="/pollutions" routerLinkActive="active">Liste des pollutions 🚮</a>
+    | <a routerLink="/pollutions/new" routerLinkActive="active" class="btn-primary">Déclarer une pollution ➕</a>
+    | <a routerLink="/favorites">Favoris ⭐</a>
+
+    | <a routerLink="/dashboard">Dashboard</a>
+    | <button (click)="logout()">Se déconnecter</button>
+
+  </ng-container>
+
+</nav>

@@ -10,6 +10,10 @@ app.use(express.json());
 
 app.use("/api/auth", authRoutes);
 
+const pollutionRoutes = require("./routes/pollution");
+
+app.use("/api/pollution", pollutionRoutes);
+
 app.listen(3000, () => {
   console.log("API running on http://localhost:3000");
 });
