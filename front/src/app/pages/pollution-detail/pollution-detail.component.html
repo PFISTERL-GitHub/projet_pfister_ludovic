@@ -1,0 +1,94 @@
+<div class="detail-container">
+  <!-- Chargement -->
+  <div *ngIf="loading" class="loading">
+    Chargement des détails...
+  </div>
+
+  <!-- Erreur -->
+  <div *ngIf="error" class="error-box">
+    <p>{{ error }}</p>
+    <a routerLink="/pollutions" class="btn btn-back">Retour à la liste</a>
+  </div>
+
+  <!-- Contenu du détail -->
+  <div *ngIf="pollution && !loading && !error" class="detail-content">
+    <!-- En-tête avec bouton retour -->
+    <div class="detail-header">
+      <a routerLink="/pollutions" class="btn-back-link">
+        ← Retour à la liste
+      </a>
+    </div>
+
+    <!-- Contenu principal -->
+    <div class="detail-main">
+      <!-- Photo principale -->
+      <div class="detail-image" *ngIf="pollution.photoUrl">
+        <img [src]="pollution.photoUrl" [alt]="pollution.titre">
+      </div>
+
+      <!-- Informations -->
+      <div class="detail-info">
+        <!-- Titre et badge -->
+        <div class="title-section">
+          <h1>{{ pollution.titre }}</h1>
+          <span class="badge" [class]="'badge-' + pollution.type.toLowerCase().replace(' ', '-')">
+            {{ pollution.type }}
+          </span>
+        </div>
+
+        <!-- Description -->
+        <div class="section">
+          <h2>Description</h2>
+          <p class="description">{{ pollution.description }}</p>
+        </div>
+
+        <!-- Informations détaillées -->
+        <div class="section">
+          <h2>Informations</h2>
+          <div class="info-grid">
+            <div class="info-item">
+              <span class="info-label">📅 Date d'observation</span>
+              <span class="info-value">{{ formatDate(pollution.dateObservation) }}</span>
+            </div>
+
+            <div class="info-item">
+              <span class="info-label">📍 Lieu</span>
+              <span class="info-value">{{ pollution.lieu }}</span>
+            </div>
+
+            <div class="info-item" *ngIf="pollution.auteur">
+              <span class="info-label">👤 Signalé par</span>
+              <span class="info-value">{{ pollution.auteur }}</span>
+            </div>
+
+            <div class="info-item">
+              <span class="info-label">🌍 Coordonnées GPS</span>
+              <span class="info-value">
+                {{ pollution.latitude }}, {{ pollution.longitude }}
+                <button class="btn-map" (click)="openInMaps()">
+                  Voir sur la carte
+                </button>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="actions-section">
+          <a 
+            [routerLink]="['/pollutions', pollution.id, 'edit']" 
+            class="btn btn-edit"
+          >
+            Modifier
+          </a>
+          <button 
+            class="btn btn-delete" 
+            (click)="deletePollution()"
+          >
+            Supprimer
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

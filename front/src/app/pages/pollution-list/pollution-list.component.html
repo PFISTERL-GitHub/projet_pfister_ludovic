@@ -1,0 +1,139 @@
+<div class="list-container">
+  <h2>Liste des pollutions</h2>
+
+  <!-- Filtres -->
+  <div class="filters-section">
+    <h3>Filtrer les résultats</h3>
+    <div class="filters-grid">
+      <!-- Filtre par type -->
+      <div class="filter-group">
+        <label for="filterType">Type de pollution</label>
+        <select 
+          id="filterType" 
+          [(ngModel)]="filterType" 
+          (change)="applyFilters()"
+        >
+          <option value="">Tous les types</option>
+          <option *ngFor="let type of pollutionTypes.slice(1)" [value]="type">
+            {{ type }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Filtre par titre -->
+      <div class="filter-group">
+        <label for="filterTitre">Titre</label>
+        <input 
+          type="text" 
+          id="filterTitre" 
+          [(ngModel)]="filterTitre"
+          (input)="applyFilters()"
+          placeholder="Rechercher par titre..."
+        >
+      </div>
+
+      <!-- Filtre par lieu -->
+      <div class="filter-group">
+        <label for="filterLieu">Lieu</label>
+        <input 
+          type="text" 
+          id="filterLieu" 
+          [(ngModel)]="filterLieu"
+          (input)="applyFilters()"
+          placeholder="Rechercher par lieu..."
+        >
+      </div>
+
+      <!-- Bouton de réinitialisation -->
+      <div class="filter-group">
+        <button class="btn-reset-filters" (click)="resetFilters()">
+          Réinitialiser
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Indicateur de chargement -->
+  <div *ngIf="loading" class="loading">
+    Chargement des pollutions...
+  </div>
+
+  <!-- Message d'erreur -->
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+
+  <!-- Compteur de résultats -->
+  <div class="results-count" *ngIf="!loading && !error">
+    {{ filteredPollutions.length }} pollution(s) trouvée(s)
+  </div>
+
+  <!-- Liste des pollutions -->
+  <div class="pollutions-grid" *ngIf="!loading && !error">
+    <div 
+      *ngFor="let pollution of filteredPollutions" 
+      class="pollution-card"
+    >
+      <!-- Image (si présente) -->
+      <div class="card-image" *ngIf="pollution.photoUrl">
+        <img [src]="pollution.photoUrl" [alt]="pollution.titre">
+      </div>
+
+      <!-- Contenu de la carte -->
+      <div class="card-content">
+        <div class="card-header">
+          <h3>{{ pollution.titre }}</h3>
+          <span class="badge" [class]="'badge-' + pollution.type.toLowerCase().replace(' ', '-')">
+            {{ pollution.type }}
+          </span>
+        </div>
+
+        <p class="card-description">{{ pollution.description }}</p>
+
+        <div class="card-info">
+          <div class="info-item">
+            <strong>📍 Lieu :</strong> {{ pollution.lieu }}
+          </div>
+          <div class="info-item">
+            <strong>📅 Date :</strong> {{ formatDate(pollution.dateObservation) }}
+          </div>
+          <div class="info-item" *ngIf="pollution.auteur">
+            <strong>👤 Auteur :</strong> {{ pollution.auteur }}
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="card-actions">
+          <a 
+            [routerLink]="['/pollutions', pollution.id]" 
+            class="btn btn-view"
+          >
+            Voir détails
+          </a>
+          <button 
+            class="btn btn-delete" 
+            (click)="deletePollution(pollution.id)"
+          >
+            Supprimer
+          </button>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Message si aucune pollution -->
+    <div *ngIf="filteredPollutions.length === 0" class="no-results">
+      Aucune pollution trouvée avec ces critères.
+    </div>
+
+    <div *ngFor="let p of filteredPollutions" class="pollution-item">
+
+      {{ p.titre }} - {{ p.type }}
+
+      <button (click)="toggleFavorite(p)">
+        ⭐ {{ favoriteService.isFavorite(p.id) ? 'Retirer' : 'Ajouter' }}
+      </button>
+
+    </div>
+  </div>
+</div>
