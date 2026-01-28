@@ -1,0 +1,1 @@
+import{Oa as m,db as o,eb as t,pb as n}from"./chunk-4TET6FDT.js";var r=class a{static \u0275fac=function(e){return new(e||a)};static \u0275cmp=m({type:a,selectors:[["app-dashboard"]],decls:4,vars:0,template:function(e,s){e&1&&(o(0,"h2"),n(1,"Dashboard"),t(),o(2,"p"),n(3,"Zone priv\xE9e accessible uniquement connect\xE9."),t())},encapsulation:2})};export{r as DashboardComponent};
