@@ -1,23 +1,30 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit} from '@angular/core';
+import { RouterOutlet, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FavoriteService } from './services/favorite.service';
+import { Observable } from 'rxjs';
+import { Pollution } from './models/pollution.model';
 import { AuthService } from './services/auth.service';
-import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
   imports: [RouterOutlet],
-  templateUrl: './app.html'
+  template: `<router-outlet></router-outlet>`,
+  standalone : true
 })
-export class App {
+export class App implements OnInit {
+  title = 'Pollution Tracker';
+
+  favorites$!: Observable<Pollution[]>;
 
   constructor(
-    private auth: AuthService,
-    private router: Router
+    private favoriteService: FavoriteService
   ) {}
 
-  logout(): void {
-    this.auth.logout();
-    this.router.navigate(['/login']);
+  ngOnInit(): void {
+    this.favorites$ = this.favoriteService.favorites$;
   }
 }
+
+
+

@@ -1,0 +1,13 @@
+<h2>Mes favoris ⭐</h2>
+
+<div *ngFor="let p of (favorites$ | async)">
+  {{ p.titre }} - {{ p.type }}
+
+  <button (click)="favoriteService.removeFromFavorites(p.id)">
+    Retirer
+  </button>
+</div>
+
+<div *ngIf="(favorites$ | async)?.length === 0">
+  <p>Aucun favori pour l’instant.</p>
+</div>

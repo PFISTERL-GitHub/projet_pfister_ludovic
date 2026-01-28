@@ -1,10 +1,23 @@
 import { Component } from '@angular/core';
+import { Store } from '@ngxs/store';
+import { Logout } from '../../store/auth/auth.actions';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [],
-  template: '<h2>Bienvenue 🎉 Vous êtes connecté !</h2>'
+  standalone: true,
+  template: `
+    <h2>Dashboard</h2>
+
+    <button (click)="logout()">Logout</button>
+  `
 })
+export class DashboardComponent {
 
+  constructor(private store: Store, private router: Router) {}
 
-export class DashboardComponent {}
+  logout(): void {
+    this.store.dispatch(new Logout());
+    this.router.navigate(['/login']);
+  }
+}

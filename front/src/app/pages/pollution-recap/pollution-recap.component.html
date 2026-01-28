@@ -1,0 +1,65 @@
+<div class="recap-container">
+  <div class="recap-header">
+    <h2>Déclaration enregistrée</h2>
+    <p class="success-message">Merci pour votre contribution à la protection de l'environnement !</p>
+  </div>
+
+  <div class="recap-content">
+    <h3>Récapitulatif de votre déclaration</h3>
+
+    <div class="recap-grid">
+      <!-- Titre -->
+      <div class="recap-item">
+        <span class="label">Titre :</span>
+        <span class="value">{{ pollution.titre }}</span>
+      </div>
+
+      <!-- Type -->
+      <div class="recap-item">
+        <span class="label">Type de pollution :</span>
+        <span class="value badge" [class]="'badge-' + pollution.type.toLowerCase().replace(' ', '-')">
+          {{ pollution.type }}
+        </span>
+      </div>
+
+      <!-- Date -->
+      <div class="recap-item">
+        <span class="label">Date d'observation :</span>
+        <span class="value">{{ formatDate(pollution.dateObservation) }}</span>
+      </div>
+
+      <!-- Lieu -->
+      <div class="recap-item">
+        <span class="label">Lieu :</span>
+        <span class="value">{{ pollution.lieu }}</span>
+      </div>
+
+      <!-- Coordonnées GPS -->
+      <div class="recap-item">
+        <span class="label">Coordonnées GPS :</span>
+        <span class="value">
+          {{ pollution.latitude }}, {{ pollution.longitude }}
+        </span>
+      </div>
+
+      <!-- Description -->
+      <div class="recap-item full-width">
+        <span class="label">Description :</span>
+        <p class="description">{{ pollution.description }}</p>
+      </div>
+
+      <!-- Photo (si présente) -->
+      <div class="recap-item full-width" *ngIf="pollution.photoUrl">
+        <span class="label">Photo :</span>
+        <div class="photo-container">
+          <img [src]="pollution.photoUrl" [alt]="pollution.titre" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Bouton pour créer une nouvelle déclaration -->
+    <button class="btn-reset" (click)="onReset()">
+      Faire une nouvelle déclaration
+    </button>
+  </div>
+</div>
